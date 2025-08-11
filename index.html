@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Good Times - Luxury Stay in New Delhi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+.header {
+    background: url('logo2.jpg') center/cover no-repeat;
+    color: white;
+    text-align: center;
+    padding: 60px 20px; 
+    position: relative;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.6) 0%, rgba(52, 73, 94, 0.6) 100%);
+    z-index: 0;
+}
+
+.header * {
+    position: relative;
+    z-index: 1;
+}
+
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #f39c12;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .hotel-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hotel-tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .section {
+            padding: 40px 30px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            border-radius: 2px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            text-align: center;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .rooms-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: #f39c12;
+        }
+
+        .room-images {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .room-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .room-image.active {
+            opacity: 1;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+            z-index: 10;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .room-info {
+            padding: 20px;
+        }
+
+        .room-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .room-features {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .inquire-btn {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .inquire-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4);
+        }
+
+        .location-section {
+            text-align: center;
+        }
+
+        .address {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .address h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .address p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .map-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .map-image-container {
+            position: relative;
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .map-image-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .map-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .map-image-container:hover .map-image {
+            transform: scale(1.05);
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(231, 76, 60, 0.8), rgba(192, 57, 43, 0.8));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .map-image-container:hover .map-overlay {
+            opacity: 1;
+        }
+
+        .map-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .map-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .map-container {
+                gap: 15px;
+            }
+            
+            .map-image {
+                height: 250px;
+            }
+            
+            .map-overlay {
+                font-size: 1.2rem;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .map-image {
+                height: 200px;
+            }
+            
+            .map-overlay {
+                font-size: 1rem;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .hotel-name {
+                font-size: 2rem;
+            }
+
+            .rooms-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .room-images {
+                height: 200px;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hotel-name {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .room-images {
+                height: 180px;
+            }
+
+            .nav-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+
+            .price-tag {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+                min-width: 110px;
+            }
+        }
+
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            padding: 0;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: imageZoomIn 0.4s ease-out;
+        }
+
+        @keyframes imageZoomIn {
+            from { 
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 0, 0, 0.8);
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .room-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .close-btn {
+                top: 10px;
+                right: 15px;
+                font-size: 30px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <img src="logo1.jpg" alt="Hotel Good Times Logo" class="logo floating-animation">
+                <h1 class="hotel-name">Hotel Good Times</h1>
+                <p class="hotel-tagline">Experience Luxury & Comfort in the Heart of New Delhi</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">About Us</h2>
+                <p class="about-text">
+    Welcome to Hotel Good Times, your perfect getaway in the heart of New Delhi. 
+    Nestled in the vibrant Karol Bagh district, our hotel blends modern luxury 
+    with traditional Indian hospitality. Whether you’re here for business or leisure, 
+    you’ll enjoy elegantly designed rooms, world-class service, and unbeatable access 
+    to the city’s best attractions. Experience comfort, convenience, and a stay 
+    you’ll remember long after you leave.
+</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Our Hotel Policies</h2>
+                <p class="about-text">
+                    <ol>
+    <li>Check-in Time – Usually starts from 12:30 to midnight.</li>
+    <li>Early Check-in – Subject to room availability and may incur extra charges.</li>
+    <li>ID Proof Required – Valid government-issued photo ID with address proof is mandatory.</li>
+    <li>Age Requirement – Minimum check-in age is above 18.</li>
+    <li>Booking Confirmation – Must present booking reference or confirmation.</li>
+    <li>Security Deposit – May be required via cash or card hold.</li>
+    <li>Payment – Full or partial payment due at check-in.</li>
+    <li>Guests Limit – Only registered guests allowed in the room.</li>
+    <li>Check-out Time – Usually 10 AM–11 PM; late check-out may cost extra.</li>
+    <li>Pets Policy – Not allowed.</li>
+    <li>Smoking Policy – Both smoking and non-smoking rooms available.</li>
+    <li>Cancellation/No-Show – Charges apply as per booking terms.</li>
+    <li>Couple-Friendly Policy – Unmarried couples allowed if valid IDs provided; both guests must be 18+.</li>
+</ol>
+
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Our Rooms & Services</h2>
+                <div class="rooms-container">
+                    <!-- Classic Room -->
+                    <div class="room-card">
+                        <div class="room-images">
+                            <div class="price-tag">₹2699 onwards</div>
+                            <img src="classic1.jpg" alt="Classic Room 1" class="room-image active" onclick="openModal(this.src, this.alt)">
+                            <img src="classic2.jpg" alt="Classic Room 2" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="classic3.jpg" alt="Classic Room 3" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="classic4.jpg" alt="Classic Room 4" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="classic5.jpg" alt="Classic Room 5" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <button class="nav-btn prev-btn" onclick="changeImage('classic', -1)">❮</button>
+                            <button class="nav-btn next-btn" onclick="changeImage('classic', 1)">❯</button>
+                        </div>
+                        <div class="room-info">
+                            <h3 class="room-title">Classic Room</h3>
+                            <p class="room-features">
+                                Premium room with king-size bed, luxury bathroom, city view, Air Conditioning , TV ,buffet breakfast, 
+                                24/7 room service, high-speed WiFi,Hot and Cold water availabile and exclusive amenities.
+                            </p>
+                            <button class="inquire-btn" onclick="inquireRoom('classic')">Inquire Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Deluxe Room -->
+                    <div class="room-card">
+                        <div class="room-images">
+                            <div class="price-tag">₹2299 onwards</div>
+                            <img src="delux1.jpg" alt="Deluxe Room 1" class="room-image active" onclick="openModal(this.src, this.alt)">
+                            <img src="delux2.jpg" alt="Deluxe Room 2" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="delux3.jpg" alt="Deluxe Room 3" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="delux4.jpg" alt="Deluxe Room 4" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="delux5.jpg" alt="Deluxe Room 5" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <button class="nav-btn prev-btn" onclick="changeImage('delux', -1)">❮</button>
+                            <button class="nav-btn next-btn" onclick="changeImage('delux', 1)">❯</button>
+                        </div>
+                        <div class="room-info">
+                            <h3 class="room-title">Deluxe Room</h3>
+                            <p class="room-features">
+                                Spacious room with queen-size bed, modern bathroom,buffet breakfast,Air Conditioning , TV , complimentary WiFi, 
+                                24-hour front desk service,Hot and Cold water availabile and comfortable seating area.
+                            </p>
+                            <button class="inquire-btn" onclick="inquireRoom('delux')">Inquire Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Standard Room -->
+                    <div class="room-card">
+                        <div class="room-images">
+                            <div class="price-tag">₹1999 onwards</div>
+                            <img src="standard1.jpg" alt="Standard Room 1" class="room-image active" onclick="openModal(this.src, this.alt)">
+                            <img src="standard2.jpg" alt="Standard Room 2" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="standard3.jpg" alt="Standard Room 3" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="standard4.jpg" alt="Standard Room 4" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <img src="standard5.jpg" alt="Standard Room 5" class="room-image" onclick="openModal(this.src, this.alt)">
+                            <button class="nav-btn prev-btn" onclick="changeImage('standard', -1)">❮</button>
+                            <button class="nav-btn next-btn" onclick="changeImage('standard', 1)">❯</button>
+                        </div>
+                        <div class="room-info">
+                            <h3 class="room-title">Standard Room</h3>
+                            <p class="room-features">
+                                Comfortable accommodation with double bed,Air Conditioning , private bathroom,TV , essential amenities, 
+                                free WiFi, buffet breakfast,Hot and Cold water availabile friendly service at an affordable price.
+                            </p>
+                            <button class="inquire-btn" onclick="inquireRoom('standard')">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Contact Us</h2>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="adult">Number of Adults</label>
+                            <input  id="adult" name="adult" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="child">Number of Childrens(above 6 yrs)</label>
+                            <input  id="child" name="child" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Please share your requirements, check-in dates, or any special requests..." required></textarea>
+                        </div>
+                        <button type="submit" class="contact-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Our Location</h2>
+                <div class="location-section">
+                    <div class="address">
+                        <h3>📍 Hotel Address</h3>
+                        <p>
+                            8/7 W.E.A Pusa Road, Karol Bagh<br>
+                            Near Metro Pillar No-87<br>
+                            (Behind Haldiram Pusa Road)<br>
+                            New Delhi - 110005
+                        </p>
+                    </div>
+                    <div class="map-container">
+                        <div class="map-image-container" onclick="openLocation()">
+                            <img src="hotel-location.png" alt="Hotel Good Times Location Map" class="map-image">
+                            <div class="map-overlay">
+                                📍 Open in Google Maps
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <div class="modal-content">
+            <img id="modalImage" class="modal-image" alt="">
+        </div>
+    </div>
+
+    <script>
+        const imageIndexes = {
+            classic: 0,
+            delux: 0,
+            standard: 0
+        };
+
+        const imageCounts = {
+            classic: 5,
+            delux: 5,
+            standard: 5
+        };
+
+        function changeImage(roomType, direction) {
+            const images = document.querySelectorAll(`.room-card:nth-child(${roomType === 'classic' ? '1' : roomType === 'delux' ? '2' : '3'}) .room-image`);
+            
+            images[imageIndexes[roomType]].classList.remove('active');
+            
+            imageIndexes[roomType] += direction;
+            
+            if (imageIndexes[roomType] >= imageCounts[roomType]) {
+                imageIndexes[roomType] = 0;
+            } else if (imageIndexes[roomType] < 0) {
+                imageIndexes[roomType] = imageCounts[roomType] - 1;
+            }
+            
+            images[imageIndexes[roomType]].classList.add('active');
+        }
+
+        function inquireRoom(roomType) {
+            const messages = {
+                classic: "Inquiry about the Classic Room",
+                delux: "Inquiry about the Delux Room", 
+                standard: "Inquiry about the Standard Room"
+            };
+            
+            const whatsappUrl = `https://wa.me/919910444312?text=${encodeURIComponent(messages[roomType])}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const adult = document.getElementById('adult').value;
+            const child = document.getElementById('child').value;
+            const message = document.getElementById('message').value;
+
+            
+            const whatsappMessage = `New Contact Form for Enquiry:
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Adults:${adult}
+Childrens:${child}
+Message: ${message}`;
+            
+            const whatsappUrl = `https://wa.me/919910444312?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            document.getElementById('contactForm').reset();
+            alert('Thank you! Your message has been sent via WhatsApp.');
+        });
+
+        setInterval(() => {
+            changeImage('classic', 1);
+            changeImage('delux', 1);
+            changeImage('standard', 1);
+        }, 5000);
+
+        function openModal(src, alt) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = src;
+            modalImage.alt = alt;
+            modal.style.display = 'block';
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        function openLocation() {
+            window.open('https://maps.app.goo.gl/BJyPwjZTooe1PbCb7?g_st=aw', '_blank');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
